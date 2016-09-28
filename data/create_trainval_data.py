@@ -75,11 +75,13 @@ def write_images_labels(annotations, data_path, output_path):
         
     for i,annotation in enumerate(annotations):
         img_filename = annotation['filename']
-        _, ext = os.path.splitext(os.path.basename(img_filename))
+        basename, ext = os.path.splitext(os.path.basename(img_filename))
         src_image_filename = os.path.join(data_path, img_filename)
-        dst_image_filename = os.path.join(output_images_folder, "%s%s" % (i,ext))
+        #dst_image_filename = os.path.join(output_images_folder, "%s%s" % (i,ext))
+        dst_image_filename = os.path.join(output_images_folder, basename+ext)
         shutil.copyfile(src_image_filename, dst_image_filename)
-        dst_label_filename = os.path.join(output_labels_folder, "%s.txt" % i)
+        #dst_label_filename = os.path.join(output_labels_folder, "%s.txt" % i)
+        dst_label_filename = os.path.join(output_labels_folder, basename + ".txt")
         with open(dst_label_filename, 'w') as writer:
             for obj in annotation['annotations']:
                 # format : class_name bbox_left bbox_top bbox_right bbox_bottom
